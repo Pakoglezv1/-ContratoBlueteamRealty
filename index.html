@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Team Realty — Generador de Contratos</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===================== FORMULARIO ===================== -->
+  <section class="panel form-panel">
+    <h1>Generador de Contratos de Arrendamiento</h1>
+    <p class="subtitle">Blue Team Realty · Borrador para firma digital</p>
+
+    <details open>
+    <summary>1. Documentación del cliente</summary>
+    <div class="section-body">
+      <p class="hint">Marca lo que ya te entregó el cliente. No bloquea la generación del contrato, pero te avisa si falta algo antes de mandarlo a firmar.</p>
+      <div id="requisitosList"></div>
+      <button type="button" class="btn-secondary" id="btnAddRequisito">+ Agregar requisito</button>
+      <p id="estadoRequisitos" class="estado-requisitos"></p>
+    </div>
+    </details>
+
+    <details open>
+    <summary>2. Partes del contrato</summary>
+    <div class="section-body">
+      <div class="field-group">
+        <label>Arrendador (dueño) — nombre completo</label>
+        <input type="text" id="arrendador" placeholder="Nombre completo">
+      </div>
+      <div class="field-group small">
+        <label>Nacionalidad del arrendador</label>
+        <input type="text" id="arrendadorNacionalidad" value="MEXICANO">
+      </div>
+      <div class="field-group">
+        <label>Arrendatario (inquilino) — nombre completo</label>
+        <input type="text" id="arrendatario" placeholder="Nombre completo">
+      </div>
+      <div class="field-group small">
+        <label>Nacionalidad del arrendatario</label>
+        <input type="text" id="arrendatarioNacionalidad" value="Mexicano">
+      </div>
+    </div>
+    </details>
+
+    <details open>
+    <summary>3. Inmueble</summary>
+    <div class="section-body">
+      <div class="field-group">
+        <label>Dirección completa del inmueble</label>
+        <input type="text" id="direccionInmueble" placeholder="Torre, unidad, calle, CP, ciudad">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Reglamento interno de</label>
+          <input type="text" id="reglamentoInterno" placeholder="Ej. Landmark Torre 2">
+        </div>
+        <div class="field-group small">
+          <label>Máx. personas</label>
+          <input type="number" id="maxPersonas" value="3" min="1">
+        </div>
+        <div class="field-group small">
+          <label>Mascotas</label>
+          <select id="mascotasPermitidas">
+            <option value="no">No permitidas</option>
+            <option value="si">Permitidas</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Uso del inmueble</label>
+        <select id="usoInmueble">
+          <option value="habitacional">Habitacional</option>
+          <option value="comercial">Comercial</option>
+          <option value="mixto">Mixto (habitacional y comercial)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Notas de equipamiento / inventario (opcional)</label>
+        <textarea id="notasEquipamiento" rows="2" placeholder="Ej. Se anexa documento con rollo fotográfico de inventario firmado"></textarea>
+      </div>
+    </div>
+    </details>
+
+    <details open>
+    <summary>4. Renta, depósito y vigencia</summary>
+    <div class="section-body">
+      <div class="field-row">
+        <div class="field-group">
+          <label>Renta mensual</label>
+          <input type="number" id="rentaMensual" step="0.01" placeholder="3200.00">
+        </div>
+        <div class="field-group small">
+          <label>Moneda</label>
+          <select id="moneda">
+            <option value="USD">USD</option>
+            <option value="MXN">MXN</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Depósito en garantía</label>
+          <input type="number" id="depositoGarantia" step="0.01" placeholder="Auto: 2x renta">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Fecha de inicio</label>
+          <input type="date" id="fechaInicio">
+        </div>
+        <div class="field-group">
+          <label>Fecha de fin (auto: +12 meses)</label>
+          <input type="date" id="fechaFin">
+        </div>
+        <div class="field-group small">
+          <label>Día de pago</label>
+          <input type="number" id="diaPago" min="1" max="28" value="1">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Lugar de pago</label>
+        <input type="text" id="lugarPago" placeholder="Dirección u oficina donde se paga la renta">
+      </div>
+    </div>
+    </details>
+
+    <details>
+    <summary>5. Términos avanzados (valores por defecto, edítalos si aplica)</summary>
+    <div class="section-body">
+      <div class="field-row">
+        <div class="field-group small">
+          <label>Aumento anual (%)</label>
+          <input type="number" id="aumentoAnualPct" value="5">
+        </div>
+        <div class="field-group small">
+          <label>Multa por mora (%)</label>
+          <input type="number" id="multaMoraPct" value="10">
+        </div>
+        <div class="field-group small">
+          <label>Incremento mín. prórroga (%)</label>
+          <input type="number" id="incrementoMinimoProrrogaPct" value="5">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Municipio (jurisdicción)</label>
+          <input type="text" id="municipio" value="Tijuana">
+        </div>
+        <div class="field-group">
+          <label>Estado (jurisdicción)</label>
+          <input type="text" id="estado" value="Baja California">
+        </div>
+      </div>
+    </div>
+    </details>
+
+    <details open>
+    <summary>6. Firma</summary>
+    <div class="section-body">
+      <div class="field-row">
+        <div class="field-group">
+          <label>Ciudad de firma</label>
+          <input type="text" id="ciudadFirma" value="Tijuana, Baja California">
+        </div>
+        <div class="field-group">
+          <label>Fecha de firma</label>
+          <input type="date" id="fechaFirma">
+        </div>
+      </div>
+    </div>
+    </details>
+
+    <div class="actions">
+      <button type="button" class="btn-primary" id="btnDescargarPDF">Descargar contrato en PDF</button>
+      <button type="button" class="btn-secondary" id="btnGuardarJSON">Guardar registro (JSON)</button>
+      <button type="button" class="btn-ghost" id="btnReset">Reiniciar formulario</button>
+    </div>
+    <p class="hint">El PDF se genera en tu navegador. Súbelo a DocuSign para la firma digital y guarda el registro en el spreadsheet de Rentas Activas.</p>
+  </section>
+
+  <!-- ===================== VISTA PREVIA ===================== -->
+  <section class="panel preview-panel">
+    <div class="preview-header">
+      <h2>Vista previa</h2>
+      <span id="previewEstado" class="badge"></span>
+    </div>
+    <div id="preview" class="contrato-preview"></div>
+  </section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="js/numero-a-letras.js"></script>
+<script src="js/contract-template.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
